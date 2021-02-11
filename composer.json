@@ -1,11 +1,11 @@
 {
-    "name": "adnanhussainturki/onedrive-api-php",
+    "name": "adnanhussainturki/microsoft-api-php",
     "description": "PHP Wrapper the OneDrive API",
     "keywords": [
         "onedrive",
         "api"
     ],
-    "homepage": "https://github.com/AdnanHussainTurki/onedrive-api-php",
+    "homepage": "https://github.com/AdnanHussainTurki/microsoft-api-php",
     "license": "MIT",
     "authors": [
         {
@@ -24,12 +24,12 @@
     },
     "autoload": {
         "psr-4": {
-            "myPHPnotes\\OneDrive\\": "src"
+            "myPHPnotes\\Microsoft\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "myPHPnotes\\OneDrive\\Test\\": "tests"
+            "myPHPnotes\\Microsoft\\Test\\": "tests"
         }
     },
     "scripts": {
