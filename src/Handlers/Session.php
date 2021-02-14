@@ -7,19 +7,18 @@ namespace myPHPnotes\Microsoft\Handlers;
  */
 class Session
 {
-    protected $prefix = 'adnanhussainturki/microsoft';
     public static function set($key, $value)
     {
-        $_SESSION[$this->prefix][$key] = $value;
+        $_SESSION['adnanhussainturki/microsoft'][$key] = $value;
     }
     public static function unset($key)
     {
         if ($this->get($key)) {
-            unset($_SESSION[$this->prefix][$key]);
+            unset($_SESSION['adnanhussainturki/microsoft'][$key]);
         }
     }
     public static function get($key)
     {
-        return (isset($_SESSION[$this->prefix][$key]) ? $_SESSION[$this->prefix][$key] : null) ;
+        return (isset($_SESSION['adnanhussainturki/microsoft'][$key]) ? $_SESSION['adnanhussainturki/microsoft'][$key] : null) ;
     }
 }

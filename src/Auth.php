@@ -15,7 +15,7 @@ class Auth  {
     protected $redirect_uri;
     protected $scopes;
     protected $guzzle;
-    protected $refreshToken
+    protected $refreshToken;
     public function __construct(string $tenant_id, string $client_id, string $client_secret, string $redirect_uri, array $scopes = [])
     {
         $this->tenant_id = $tenant_id;
@@ -23,6 +23,8 @@ class Auth  {
         $this->client_secret = $client_secret;
         $this->redirect_uri = $redirect_uri;
         $this->scopes = $scopes;
+        Session::set("host", $this->host);
+        Session::set("resource", $this->resource);
         Session::set("tenant_id", $tenant_id);
         Session::set("client_id", $client_id);
         Session::set("client_secret", $client_secret);
@@ -47,20 +49,21 @@ class Auth  {
         $url = $this->host. $this->tenant_id ."/oauth2/v2.0/token";
         $tokens = $this->guzzle->post($url, [
             'form_params' => [
-                'client_id' => $this->client_id,
-                'client_secret' => $this->client_secret,
+                'client_id' => Session::get("client_id"),
+                'client_secret' => Session::get("client_secret"),
                 'grant_type' => 'refresh_token',
-                'refresh_token' => $this->refreshToken
+                'refresh_token' => Session::get("refreshToken")
             ],
         ])->getBody()->getContents();
-        return json_decode($tokens);
+        return json_decode($tokens)->access_token;
     }
     public function setAccessToken(string $accessToken = null)
     {
         if (!$accessToken) {
             $this->accessToken = $this->getAccessTokenUsingRefreshToken();
+        } else {
+            $this->accessToken = trim($accessToken);
         }
-        $this->accessToken = $accessToken;
         Session::set("accessToken", $this->accessToken);
         return Session::get("accessToken");
     }
@@ -72,7 +75,7 @@ class Auth  {
             'redirect_uri' => $this->redirect_uri,
             'response_mode' => 'query',
             'scope' => implode(' ', $this->scopes),
-            'state' => Session::get("state");
+            'state' => Session::get("state")
         ];
         return $this->host . $this->tenant_id . "/oauth2/v2.0/authorize?". http_build_query($parameters);
     }
@@ -97,9 +100,4 @@ class Auth  {
         ])->getBody()->getContents();
         return json_decode($tokens);
     }
-    public function user()
-    {
-
-    }
-    
 }
