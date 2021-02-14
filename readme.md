@@ -8,11 +8,11 @@ You can install this library to your project via composer using the following co
 `composer require adnanhussainturki/microsoft-api-php`
 
 ### Authentication
-Microsoft uses OAuth 2.0 meaning Access Token is the important to pull data from the Microsoft servers on behalf of the user for which access token is generated. Access token is generated only for the nodes for which the authenticated user allowed your app to.
+Microsoft uses OAuth 2.0 meaning Access Token is the key to pull data from the Microsoft servers on behalf of the user for which access token is generated. Access token is generated only for the nodes for which the authenticated user allowed your app to.
 
-These nodes are called as scopes which dictates what types of data and functions can the app perform on the behalf of the authenticated user (against her access token). You can get the scopes application, in this [document](https://docs.microsoft.com/en-us/graph/permissions-reference "document").
+These nodes are called as scopes which dictates what types of data and functions can the app perform on the behalf of the authenticated user (against her access token). You can get the applicable scopes, in this [document](https://docs.microsoft.com/en-us/graph/permissions-reference "document").
 
-This wrapper also supports tenants. If you want user of only your organization (Azure) to use this app, you can use respective tenant otherwise common will work fine for general microsoft user authentication.
+This wrapper also supports tenants. If you want users of only your organization (Azure) to use this app, you can use respective tenant otherwise common will work fine for general microsoft user authentication.
 
 ```
 session_start(); // Important
@@ -36,8 +36,8 @@ $microsoft = new Auth($tenant, $client_id,  $client_secret, $callback, $scopes);
 ###    Fetching & Setting Access Token (Shorter life)
 ```php
     // INITIALIZATION
-   $microsoft = new Auth($tenant, $client_id,  $client_secret, $callback, $scopes);
-    header("location: ". $microsoft->getAuthUrl()); //Redirecting to get permission
+$microsoft = new Auth($tenant, $client_id,  $client_secret, $callback, $scopes);
+    header("location: ". $microsoft->getAuthUrl()); //Redirecting to get access token
 ```
 ```php
 // ON CALLBACK
@@ -47,8 +47,8 @@ require "vendor/autoload.php";
 use myPHPnotes\Microsoft\Auth;
 use myPHPnotes\Microsoft\Handlers\Session;
 
- $microsoft = new Auth(Session::get("tenant_id"),Session::get("client_id"),  Session::get("client_secret"), Session::get("redirect_uri"), Session::get("scopes"));
- $tokens = $microsoft->getToken($_REQUEST['code'], Session::get("state"));
+$microsoft = new Auth(Session::get("tenant_id"),Session::get("client_id"),  Session::get("client_secret"), Session::get("redirect_uri"), Session::get("scopes"));
+$tokens = $microsoft->getToken($_REQUEST['code'], Session::get("state"));
 
 // Setting access token to the wrapper
 $microsoft->setAccessToken($tokens->access_token);
@@ -77,8 +77,8 @@ require "vendor/autoload.php";
 use myPHPnotes\Microsoft\Auth;
 use myPHPnotes\Microsoft\Handlers\Session;
 
- $microsoft = new Auth(Session::get("tenant_id"),Session::get("client_id"),  Session::get("client_secret"), Session::get("redirect_uri"), Session::get("scopes"));
- $tokens = $microsoft->getToken($_REQUEST['code'], Session::get("state"));
+$microsoft = new Auth(Session::get("tenant_id"),Session::get("client_id"),  Session::get("client_secret"), Session::get("redirect_uri"), Session::get("scopes"));
+$tokens = $microsoft->getToken($_REQUEST['code'], Session::get("state"));
 
 $refreshToken = $tokens->refresh_token;
  
@@ -90,7 +90,7 @@ If you have active refresh token for an user, you do need ask for the user permi
 
 $refreshToken = "M.R3_BAY.CbCa*dfsafayrRe9NFNcFEWJBZF9*sXaIYH1HHEFb6i2uUFCGT0KvyXzXulrjPqC3qRgw*NAuajBICU6PmdvfHOyeWGdmE8tUZ4f6XSluF3aKHBGbs*FGSvY7nkUgHhJ*F*4Pfg6SLuNNHY8mh6U8pMNuY1EwnKgAI9s1X4Tt0VXm*mIeLoiw8MTifTukr1aK!7rQOA18ow84bOSpPyu7lZbwATC2pygflRZEOPiHi2!MGrw6CuCxLPgGVu88rsWZJJw3rLjSTofJF78Sgb8ZjkIJAwcfZukotN0lF0GaTThWvM35QEricRyVBYxIC*8iXywFmqKkeClJFeVYx!US35inDel3oXg9**jtd8FAN7x!050JGWN7iJgJA!eMg4h1L6PjcmCZfuVnv0s5eGJ3jauimRBPKJLT6rgzVvkAtI5mJitumZzKnzQNRCxn03w$$";
 
- $microsoft = new Auth(Session::get("tenant_id"),Session::get("client_id"),  Session::get("client_secret"), Session::get("redirect_uri"), Session::get("scopes"));
+$microsoft = new Auth(Session::get("tenant_id"),Session::get("client_id"),  Session::get("client_secret"), Session::get("redirect_uri"), Session::get("scopes"));
  
 $microsoft->setRefreshToken($refreshToken);
 $accessToken = $auth->setAccessToken();
