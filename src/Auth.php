@@ -30,7 +30,7 @@ class Auth  {
         Session::set("client_secret", $client_secret);
         Session::set("redirect_uri", $redirect_uri);
         Session::set("scopes", $scopes);
-        if (!Session::get('state'))) {
+        if (!Session::get('state')) {
             Session::set("state", random_int(1, 200000));
         }
         $this->guzzle = new \GuzzleHttp\Client();
