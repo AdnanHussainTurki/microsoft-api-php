@@ -6,9 +6,9 @@ use Microsoft\Graph\Model\Calendar as MicrosoftCalendar;
 
 
 /**
- * Calendars Model
+ * Calendar Model
  */
-class Calendars extends BaseModel
+class Calendar extends BaseModel
 {
     public $data;
     function __construct()
