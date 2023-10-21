@@ -15,6 +15,7 @@ These nodes are called as scopes which dictates what types of data and functions
 This wrapper also supports tenants. If you want users of only your organization (Azure) to use this app, you can use respective tenant otherwise common will work fine for general microsoft user authentication.
 
 ```
+<?php
 session_start(); // Important
 require "vendor/autoload.php";
 
@@ -28,7 +29,7 @@ $scopes = [
             'Files.Read.All',
             '.......'
         ];
-$callback_url = "https://jodi.myphpnotes.com/callback.php";
+$callback_url = "https://yoursite.com/callback.php";
 
 $microsoft = new Auth($tenant, $client_id,  $client_secret, $callback, $scopes);
 ```
